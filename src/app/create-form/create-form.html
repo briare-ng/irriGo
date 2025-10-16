@@ -1,0 +1,79 @@
+<div class="form-container">
+  <h2>Créez votre plan d'irrigation</h2>
+
+  <form [formGroup] = "createPlanForm" >
+
+    <!-- Surface -->
+    <div class="form-group">
+      <label for="surface">Surface (m²)</label>
+      <input type="number" id="surface" name="surface" formControlName="surface"  required>
+    </div>
+
+        <!-- Période -->
+    <div class="form-group">
+      <label for="periode">Période</label>
+      <select id="periode" name="periode"  required formControlName="period">
+        <option value="semaines">Semaines</option>
+        <option value="trimestre">Trimestre</option>
+        <option value="annee">Année</option>
+      </select>
+    </div>
+
+    <!-- Quantité d'eau -->
+    <div class="form-group">
+      <label for="eau">Quantité d’eau disponible (m³)</label>
+      <input type="number" id="eau" name="eau" formControlName="water"  required>
+    </div>
+
+    <!-- Type de culture -->
+    <div class="form-group">
+      <label for="plant">Type de culture </label>
+        <select name="plant"  required formControlName="plant">
+        <option value="plant">Tomates</option>
+        <option value="plant">Courgettes</option>
+
+     <!-- mettre les variable de l'enum --> 
+      </select>
+    </div>
+
+    <!-- En serre / extérieur -->
+    <div class="form-group">
+      <label>Localisation</label>
+      <select name="localisation"  required formControlName="isInGreenHouse">
+        <option value="serre">En serre</option>
+        <option value="exterieur">En extérieur</option>
+      </select>
+    </div>
+
+    <!-- Adresse Declancher la requete que pour la requete de geolocalisation -->
+    <div class="form-group">
+
+      <label for="adresse">Adresse</label>
+      <input type="text" id="adresse" name="adresse" formControlName="adresse"  required>
+      
+      <label for="codePostale">Code Postale</label>
+      <input type="number" id="codePostale" name="codePostale" formControlName="codePostale"  required>
+
+      <label for="city">Ville</label>
+      <input type="text" id="ville" name="ville" formControlName="ville"  required>
+
+    </div>
+    
+
+    <!-- Bouton continuer -->
+     @if (!showFormPart2){
+      <div class="form-group"> 
+      <button type="submit" (click)="onSubmit()">Continuer</button> 
+      </div>
+     }
+
+
+  <!-- Suite du formulaire (initialement cachée) -->
+   @if (showFormPart2){
+      <div class="form-suite" >
+     <app-create-form2></app-create-form2>
+     </div>
+   }
+
+    </form>
+
