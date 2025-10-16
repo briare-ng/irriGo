@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -33,6 +33,8 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './login.scss',
 })
 export class Login {
+  private router = inject(Router);
+  user = { name: 'ugo', email: 'ugo@devid.com', password: 'ugo@Devid25' };
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
@@ -45,11 +47,6 @@ export class Login {
   formErrorMessage = signal('');
   formSubmitComplete = signal('');
   hide = signal(true);
-
-  constructor(
-    private readonly authFacade: AuthFacade,
-    private router: Router
-  ) {}
 
   get email() {
     return this.loginForm.get('email') as FormControl;
@@ -100,6 +97,14 @@ export class Login {
       //     })
       //   )
       //   .subscribe();
+if (
+        this.password.value === this.user.password &&
+        this.email.value === this.user.email
+      ) {
+        console.log('logged');
+        this.router.navigate(['/']);
+      } else { console.log("user doesn't exist");
+      }
     } else {
       this.formErrorMessage.set('Formulaire invalide');
     }

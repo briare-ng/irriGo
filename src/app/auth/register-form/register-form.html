@@ -1,8 +1,6 @@
-<div class="register-form-container">
-    <p>{{emailValidatedMsg()}}</p>
-    <!-- @if (isEmailValidated()){ -->
-    <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
-        <p>Formulaire d'inscription :</p>
+<div class="register-form-container bg-teal-50 h-full flex flex-col justify-center">
+    <form class="p-5 flex flex-col" [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+        <h1 class="text-xl font-bold py-1">Formulaire d'inscription :</h1>
         <mat-form-field class="form-field">
             <mat-label>Username</mat-label>
             <input matInput placeholder="Votre nom d'utilisateur" formControlName="username" required />
@@ -38,7 +36,7 @@
             <mat-error>1 minuscule, 1 majuscule, 1 caractère spécial et 1 chiffre minimum</mat-error>
             }
         </mat-form-field>
-        <mat-form-field class="form-field">
+        <mat-form-field class="form-field mb-5">
             <mat-label>Password confirmation</mat-label>
             <input matInput placeholder="Confirmer votre mot de passe" [type]="hideConfirmPwd() ? 'password' : 'text'"
                 formControlName="passwordConfirm" required />
@@ -46,15 +44,15 @@
                 [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPwd()">
                 <mat-icon>{{hideConfirmPwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
             </button>
-        </mat-form-field>
-        @if (passwordConfirm.value && registerForm.hasError('match')) {
-        <p class="text-[#BA1A1A] text-xs pb-2">Les mots de passe ne sont pas identiques</p>
+            @if (passwordConfirm.value !== user.password && passwordConfirm.touched) {
+        <mat-error>1 minuscule, 1 majuscule, 1 caractère spécial et 1 chiffre minimum</mat-error>
         }
+        </mat-form-field>
         <button mat-raised-button type="submit" class="login-button">Valider l'inscription</button>
 
-        <div class="form-msg">
-            @if (formErrorMessage()) {<p class="form-error">{{formErrorMessage()}}</p>}
-            @if (formSubmitComplete()) {<p class="form-submit">{{formSubmitComplete()}}</p>}
+        <div class="flex flex-row justify-center py-1">
+            @if (formErrorMessage()) {<p class="text-red-700">{{formErrorMessage()}}</p>}
+            @if (formSubmitComplete()) {<p class="form-submit text-green-700">{{formSubmitComplete()}}</p>}
         </div>
     </form>
     <!-- } -->

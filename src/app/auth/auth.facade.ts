@@ -18,12 +18,6 @@ export class AuthFacade {
     return //userStore.getValue();
   }
 
-  emailAskForConfirm(email: string) {
-    console.log('askforconfirm facade : ', email);
-    const body: EmailToCheckDto = { email: email };
-    // return this.authService.emailAskForConfirm(body);
-  }
-
   signin(email: string, password: string) {
     const body: LoginDto = { email, password };
     // return this.authService.signin(body).pipe(
@@ -31,10 +25,6 @@ export class AuthFacade {
     //     // this.storeUser(res);
     //   })
     // );
-  }
-
-  checkEmailToken(token: string) {
-    // return this.authService.checkEmailToken(token);
   }
 
   signup(username: string, email: string, password: string) {
@@ -45,10 +35,6 @@ export class AuthFacade {
       // })
     // );
   }
-
-  // resetPwd() {}  // à déplacer dans la partie "User Account"
-  // resetPwdconfirm() {}
-  // deleteUser() {}
 
   logout() {
     // userStore.update((state) => ({

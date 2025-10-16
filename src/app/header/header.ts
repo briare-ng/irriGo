@@ -1,14 +1,14 @@
-import { AuthFacade } from './../../auth/auth.facade';
+import { AuthFacade } from '../auth/auth.facade';
 import { Component } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router, RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, RouterModule, MatIcon],
+  imports: [CommonModule, MatButtonModule, RouterModule, MatIcon, NgOptimizedImage],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })

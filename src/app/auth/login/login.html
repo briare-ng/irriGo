@@ -1,6 +1,8 @@
-<div class="login-container">
-    <form [formGroup]="loginForm" (ngSubmit)="login()">
-        <h1 class="text-xl font-bold py-3 md:text-3xl">Log in</h1>
+<div class="login-container bg-teal-50 h-full flex flex-col justify-center">
+    <form 
+    class="p-5 flex flex-col"
+    [formGroup]="loginForm" (ngSubmit)="login()">
+        <h1 class="text-xl font-bold py-1">Connexion</h1>
         <mat-form-field class="form-field">
             <mat-label>Email</mat-label>
             <input matInput placeholder="email@example.com" formControlName="email" (blur)="updateErrorMessage()"
@@ -20,10 +22,10 @@
             <mat-error>{{passwordErrorMessage()}}</mat-error>
         </mat-form-field>
         <button mat-raised-button type="submit" class="login-button">Sign In</button>
-        <button mat-button="elevated" [routerLink]="['/register']" class="mt-2">No account yet? SignUp here</button>
-        <div class="form-msg">
-            @if (formErrorMessage()) {<p class="form-error">{{formErrorMessage()}}</p>}
-            @if (formSubmitComplete()) {<p class="form-submit">{{formSubmitComplete()}}</p>}
+        <div class="form-msg flex justify-center py-1">
+            @if (formErrorMessage()) {<p class="text-red-700">{{formErrorMessage()}}</p>}
+            @if (formSubmitComplete()) {<p class="form-submit text-green-700">{{formSubmitComplete()}}</p>}
         </div>
+        <button mat-button="elevated" [routerLink]="['/register']" class="mt-2">Inscription</button>
     </form>
 </div>

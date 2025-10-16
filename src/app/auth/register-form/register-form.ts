@@ -1,8 +1,7 @@
 import { AuthFacade } from '../auth.facade';
 import { CommonModule } from '@angular/common';
-import { Component, signal } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { catchError, map, merge, Observable, tap, throwError } from 'rxjs';
+import { Component, inject, signal } from '@angular/core';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 import {
   FormControl,
   FormGroup,
@@ -14,7 +13,6 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 @Component({
   selector: 'app-register-form',
@@ -27,12 +25,13 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
     ReactiveFormsModule,
     MatIconModule,
     MatButtonModule,
+    RouterModule,
   ],
   templateUrl: './register-form.html',
   styleUrl: './register-form.scss',
 })
 export class RegisterForm {
-  //TODO préremplir l'email et disable le champ?
+  private router = inject(Router);
   registerForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
     email: new FormControl('', [
@@ -57,33 +56,13 @@ export class RegisterForm {
   isEmailValidated = signal(false);
   hidePwd = signal(true);
   hideConfirmPwd = signal(true);
+  user = { name: 'ugo', email: 'ugo@devid.com', password: 'ugo@Devid25' };
 
   // isPasswordConfirm = new FormControl('12', Validators.minLength(5));
 
   constructor(private route: ActivatedRoute, private authFacade: AuthFacade) {}
 
-  ngOnInit(): void {
-    // this.route.params.subscribe((params) => {
-    //   this.checkEmailToken(params['emailConfirmationToken'])
-    //     .pipe(
-    //       tap((res) => {
-    //         this.isEmailValidated.set(res ? true : false);
-    //         this.emailValidatedMsg.set('Vérification de votre email effectuée');
-    //       }),
-    //       catchError((error) => {
-    //         this.emailValidatedMsg.set(
-    //           "Le lien de validation d'email n'est pas / plus valide"
-    //         );
-    //         return throwError(() => error);
-    //       })
-    //     )
-    //     .subscribe();
-    // });
-    // this.passwordConfirm.valueChanges.subscribe((value) => {
-    //   console.log('isPasswordConfirm : ', this.isPasswordConfirm);
-    //   console.log('value : ', value);
-    // });
-  }
+  ngOnInit(): void {}
 
   get email() {
     return this.registerForm.get('email') as FormControl;
@@ -106,11 +85,9 @@ export class RegisterForm {
     event.stopPropagation();
   }
 
-  checkEmailToken(token: string) {
-    return this.authFacade.checkEmailToken(token);
-  }
-
   submitRegister() {
+    console.log('errors : ', this.registerForm.errors);
+
     if (this.registerForm.valid) {
       console.log('valid');
       // this.authFacade
@@ -129,8 +106,17 @@ export class RegisterForm {
       //     })
       //   )
       //   .subscribe();
+      if (
+        this.password.value === this.user.password &&
+        this.username.value === this.user.name &&
+        this.email.value === this.user.email
+      ) {
+        console.log('inscrit');
+        this.router.navigate(['/']); // => navigate to setting a plan
+      }
     } else {
       // this.updateErrorMessage();
+      this.formErrorMessage.set('une erreur est survenue, veuillez réessayer');
       console.log('form-invalid');
     }
   }
