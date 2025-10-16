@@ -1,0 +1,61 @@
+<div class="register-form-container">
+    <p>{{emailValidatedMsg()}}</p>
+    <!-- @if (isEmailValidated()){ -->
+    <form [formGroup]="registerForm" (ngSubmit)="submitRegister()">
+        <p>Formulaire d'inscription :</p>
+        <mat-form-field class="form-field">
+            <mat-label>Username</mat-label>
+            <input matInput placeholder="Votre nom d'utilisateur" formControlName="username" required />
+            @if (username.hasError('required')) {
+            <mat-error>Entrez votre nom d'utilisateur</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Email</mat-label>
+            <input matInput placeholder="Votre email@example.com" formControlName="email" required />
+            @if (email.hasError('required')) {
+            <mat-error>Entrez votre Email</mat-error>
+            }
+            @if (email.hasError('pattern')) {
+            <mat-error>Email invalide</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Password</mat-label>
+            <input matInput placeholder="Votre mot de passe" [type]="hidePwd() ? 'password' : 'text'"
+                formControlName="password" required />
+            <button mat-icon-button matSuffix type="button" (click)="hidePwdEvent($event)"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hidePwd()">
+                <mat-icon>{{hidePwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+            @if (password.hasError('minlength')) {
+            <mat-error>8 caractères minimum</mat-error>
+            }
+            @else if (password.hasError('required')) {
+            <mat-error>Entrez un mot de passe</mat-error>
+            }
+            @else if (password.hasError('pattern')) {
+            <mat-error>1 minuscule, 1 majuscule, 1 caractère spécial et 1 chiffre minimum</mat-error>
+            }
+        </mat-form-field>
+        <mat-form-field class="form-field">
+            <mat-label>Password confirmation</mat-label>
+            <input matInput placeholder="Confirmer votre mot de passe" [type]="hideConfirmPwd() ? 'password' : 'text'"
+                formControlName="passwordConfirm" required />
+            <button mat-icon-button matSuffix type="button" (click)="hideConfirmPwdEvent($event)"
+                [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hideConfirmPwd()">
+                <mat-icon>{{hideConfirmPwd() ? 'visibility_off' : 'visibility'}}</mat-icon>
+            </button>
+        </mat-form-field>
+        @if (passwordConfirm.value && registerForm.hasError('match')) {
+        <p class="text-[#BA1A1A] text-xs pb-2">Les mots de passe ne sont pas identiques</p>
+        }
+        <button mat-raised-button type="submit" class="login-button">Valider l'inscription</button>
+
+        <div class="form-msg">
+            @if (formErrorMessage()) {<p class="form-error">{{formErrorMessage()}}</p>}
+            @if (formSubmitComplete()) {<p class="form-submit">{{formSubmitComplete()}}</p>}
+        </div>
+    </form>
+    <!-- } -->
+</div>
