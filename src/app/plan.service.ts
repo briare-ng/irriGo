@@ -1,9 +1,12 @@
 import { HttpClient } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../environments/environment.development';
 import { createPlanDto } from './models/createPlanDto';
-import { createPlan2Dto } from './models/createPlan2';
+import { getCreatePlan2Dto } from './models/createPlan2';
 
+@Injectable({
+  providedIn: 'root', // permet d’injecter le service partout
+})
 export class PlanService {
   private readonly httpClient = inject(HttpClient);
   private readonly BaseUrl = environment.apiUrl;
@@ -20,7 +23,7 @@ export class PlanService {
 
   //envoyer les parametre finales
 
-  creatPlan2(createPlan: createPlan2Dto) {
+  /*  creatPlan2(createPlan: getCreatePlan2Dto) {
     return this.httpClient.post(`${this.BaseUrl}/`, createPlan);
-  }
+  }*/
 }
