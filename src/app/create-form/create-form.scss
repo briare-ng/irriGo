@@ -1,0 +1,166 @@
+/*.form-container {
+  max-width: 500px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background-color: #fafafa;
+  font-family: Arial, sans-serif;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1rem;
+}
+
+label {
+  margin-bottom: 0.3rem;
+  font-weight: bold;
+}
+
+input, select {
+  padding: 0.5rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+
+button {
+  padding: 0.7rem;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-size: 1rem;
+  cursor: pointer;
+}
+
+button:disabled {
+  background-color: #aaa;
+  cursor: not-allowed;
+}
+
+.form-suite {
+  margin-top: 2rem;
+  padding: 1rem;
+  border-top: 1px solid #ccc;
+}*/
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  background: #f9fafb;
+  padding: 2rem 1.5rem;
+  border-radius: 16px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 420px;
+  margin: 2rem auto;
+  font-family: "Inter", sans-serif;
+}
+
+h1 {
+  text-align: center;
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+  color: #2b7a78;
+}
+
+/* MAT Form Field (pour register-form) */
+mat-form-field {
+  width: 100%;
+  background: white;
+  border-radius: 12px;
+}
+
+.mat-mdc-form-field-infix {
+  border-radius: 12px;
+}
+
+input[matInput] {
+  border-radius: 12px !important;
+}
+
+/* Inputs classiques (pour create-form) */
+input,
+select {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border-radius: 12px;
+  border: 1px solid #d1d5db;
+  background: white;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+
+  &:focus {
+    outline: none;
+    border-color: #2b7a78;
+    box-shadow: 0 0 0 3px rgba(43, 122, 120, 0.2);
+  }
+}
+
+small,
+mat-error {
+  color: #e11d48;
+  font-size: 0.8rem;
+}
+
+/* Bouton principal */
+button,
+button[mat-raised-button] {
+  padding: 0.75rem;
+  border: none;
+  border-radius: 12px;
+  background-color: #2b7a78;
+  color: white;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  text-transform: none;
+
+  &:hover {
+    background-color: #205f5d;
+  }
+
+  &:active {
+    transform: scale(0.98);
+  }
+}
+
+/* Conteneur global du formulaire */
+.register-form-container,
+.create-plan-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #e6fffa;
+  min-height: 100vh;
+}
+
+/* Gestion des messages d’erreur ou succès */
+.form-submit {
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.text-red-700 {
+  color: #dc2626;
+}
+
+.text-green-700 {
+  color: #15803d;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  form {
+    max-width: 90%;
+    padding: 1.2rem;
+  }
+}

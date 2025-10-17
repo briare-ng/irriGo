@@ -34,3 +34,92 @@
 // .form-submit {
 //   color: rgb(19, 185, 7);
 // }
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 2rem;
+  background: white !important;
+  border-radius: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  max-width: 400px;
+  margin: 2rem auto;
+  font-family: "Inter", sans-serif;
+}
+
+/* ====== Inputs ====== */
+.mat-mdc-form-field {
+  width: 100%;
+  background-color: none;
+}
+
+/* Supprimer le fond gris sur les champs */
+.mat-mdc-text-field-wrapper {
+  background: none;
+  color: white;
+}
+
+/* ====== Boutons d’icône (suffix/prefix) ====== */
+.mat-mdc-form-field .mat-mdc-icon-button,
+.mat-form-field .mat-icon-button,
+.mat-mdc-form-field .mat-icon-button {
+  background: none !important;   /* Supprime le fond gris */
+  box-shadow: none !important;
+  color: inherit !important;            /* Hérite de la couleur du texte */
+  border-radius: 8px;                   /* Optionnel */
+}
+
+/* Hover / focus : feedback doux */
+.mat-mdc-form-field .mat-mdc-icon-button:hover,
+.mat-mdc-form-field .mat-mdc-icon-button:focus {
+  background-color: rgba(0, 0, 0, 0.04) !important;
+}
+
+/* Couleur de l’icône */
+.mat-mdc-form-field .mat-icon {
+  color: #374151 !important; /* gris foncé lisible */
+  font-size: 20px;
+}
+
+/* ====== Bouton principal ====== */
+button[mat-raised-button] {
+  background-color: #2b7a78 !important;
+  color: white !important;
+  font-weight: 500;
+  border-radius: 12px !important;
+  padding: 0.75rem 1.25rem;
+  width: 100%;
+  transition: background 0.2s ease;
+}
+
+button[mat-raised-button]:hover {
+  background-color: #226862 !important;
+  border-radius: 100%;
+}
+
+.mat-mdc-button-touch-target{
+    border-radius: 50% !important;
+}
+.mt-2{
+    background-color: none !important;
+    color: #226862 !important;
+}
+
+/* ====== Messages d’erreur ====== */
+.mat-mdc-form-field-error {
+  font-size: 0.7s5rem;
+  color: #d32f2f;
+  margin-top: -0.5rem;
+}
+
+/* ====== Responsive ====== */
+@media (max-width: 600px) {
+  .register-form-container {
+    padding: 1rem;
+    margin: 1rem;
+    box-shadow: none;
+    border: 1px solid #e5e7eb;
+  }
+}
+

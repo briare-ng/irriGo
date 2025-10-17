@@ -7,7 +7,6 @@ import { RegisterDto } from '../models/registerDto';
 import { tap } from 'rxjs';
 import { LoginResponseDto } from '../models/loginResponseDto';
 
-
 @Injectable({
   providedIn: 'root',
 })
@@ -15,7 +14,7 @@ export class AuthFacade {
   constructor() {}
 
   getAuthStore() {
-    return //userStore.getValue();
+    return; //userStore.getValue();
   }
 
   signin(email: string, password: string) {
@@ -28,11 +27,11 @@ export class AuthFacade {
   }
 
   signup(username: string, email: string, password: string) {
-    const body: RegisterDto = { username, email, password };
+    //const body: RegisterDto = { username, email, password };
     // return this.authService.signup(body).pipe(
-      // tap((res) => {
-        // this.storeUser(res);
-      // })
+    // tap((res) => {
+    // this.storeUser(res);
+    // })
     // );
   }
 
