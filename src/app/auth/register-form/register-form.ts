@@ -13,6 +13,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { AuthenticationStore } from '../auth.store';
 
 @Component({
   selector: 'app-register-form',
@@ -31,6 +32,7 @@ import { MatInputModule } from '@angular/material/input';
   styleUrl: './register-form.scss',
 })
 export class RegisterForm {
+  private authStore = inject(AuthenticationStore);
   private router = inject(Router);
   registerForm = new FormGroup({
     username: new FormControl('', [Validators.required]),
@@ -86,36 +88,24 @@ export class RegisterForm {
   }
 
   submitRegister() {
-    console.log('errors : ', this.registerForm.errors);
-
     if (this.registerForm.valid) {
       console.log('valid');
-      // this.authFacade
-      //   .signup(this.username.value, this.email.value, this.password.value)
-      //   .pipe(
-      //     tap((res) => {
-      //       this.formSubmitComplete.set(`${res.user.username} you're logged !`);
-      //       this.formErrorMessage.set('');
-      //       console.log(res);
-      //     }),
-      //     catchError((err) => {
-      //       this.formErrorMessage.set(
-      //         'Un problème est survenu, veuillez réessayer'
-      //       );
-      //       return throwError(() => err);
-      //     })
-      //   )
-      //   .subscribe();
-      if (
-        this.password.value === this.user.password &&
-        this.username.value === this.user.name &&
-        this.email.value === this.user.email
-      ) {
-        console.log('inscrit');
-        this.router.navigate(['/']); // => navigate to setting a plan
-      }
+      this.authStore
+        .register({
+          username: this.username.value,
+          email: this.email.value,
+          password: this.password.value,
+        })
+        .subscribe({
+          next: () => {
+            console.log('inscrit');
+            this.router.navigate(['/create-plan']); // => navigate to setting a plan
+          },
+          error: (err) => {
+            console.log('not registered', err);
+          },
+        });
     } else {
-      // this.updateErrorMessage();
       this.formErrorMessage.set('une erreur est survenue, veuillez réessayer');
       console.log('form-invalid');
     }

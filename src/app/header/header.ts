@@ -1,21 +1,31 @@
-import { AuthFacade } from '../auth/auth.facade';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
-import { Router, RouterModule } from '@angular/router';
+import { RouterModule } from '@angular/router';
 import { MatIcon } from '@angular/material/icon';
+import { AuthenticationStore } from '../auth/auth.store';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, MatButtonModule, RouterModule, MatIcon, NgOptimizedImage],
+  imports: [
+    CommonModule,
+    MatButtonModule,
+    RouterModule,
+    MatIcon,
+    NgOptimizedImage,
+  ],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header {
-  constructor(private authFacade: AuthFacade, private router: Router) {}
+  private authStore = inject(AuthenticationStore);
+  user = this.authStore.user;
   logOut() {
-    this.authFacade.logout();
-    this.router.navigate(['/login']);
+    this.authStore.logout();
+  }
+  getUser(){
+    console.log('user : ',this.authStore.user());
+    console.log('token : ',this.authStore.token());
   }
 }

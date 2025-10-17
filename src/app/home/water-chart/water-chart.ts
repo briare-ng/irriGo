@@ -15,7 +15,7 @@ export class WaterChart {
     datasets: [
  {
         data: [65, 59, 80, 81, 56, 55, 40, 28, 48, 40, 19, 86, 27, 90],
-        label: 'Volume disponible',
+        label: 'Prévisionnel',
         backgroundColor: 'rgba(106, 218, 22,0.2)',
         borderColor: 'rgba(106, 218, 22,1)',
         pointBackgroundColor: 'rgba(43, 90, 8,1)',

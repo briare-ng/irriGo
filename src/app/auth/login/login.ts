@@ -15,6 +15,7 @@ import { AuthFacade } from '../auth.facade';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge, tap, catchError, throwError } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
+import { AuthenticationStore } from '../auth.store';
 
 @Component({
   selector: 'app-login',
@@ -33,6 +34,7 @@ import { Router, RouterModule } from '@angular/router';
   styleUrl: './login.scss',
 })
 export class Login {
+  private authStore = inject(AuthenticationStore);
   private router = inject(Router);
   user = { name: 'ugo', email: 'ugo@devid.com', password: 'ugo@Devid25' };
   loginForm = new FormGroup({
@@ -80,31 +82,20 @@ export class Login {
 
   login() {
     if (this.loginForm.valid) {
-      // this.authFacade
-      //   .signin(this.email.value, this.password.value)
-      //   .pipe(
-      //     tap((res) => {
-      //       this.formSubmitComplete.set(`${res.user.username} you're logged !`); // set timeout or notify with snackabar
-      //       this.formErrorMessage.set('');
-      //       console.log(res);
-      //       this.router.navigate(['/']);
-      //     }),
-      //     catchError((err) => {
-      //       this.formErrorMessage.set(
-      //         'Identifiants non valide, veuillez réessayer'
-      //       );
-      //       return throwError(() => err);
-      //     })
-      //   )
-      //   .subscribe();
-if (
-        this.password.value === this.user.password &&
-        this.email.value === this.user.email
-      ) {
-        console.log('logged');
-        this.router.navigate(['/']);
-      } else { console.log("user doesn't exist");
-      }
+      this.authStore
+        .authenticate({
+          email: this.email.value,
+          password: this.password.value,
+        })
+        .subscribe({
+          next: () => {
+            console.log('logged');
+            this.router.navigate(['/']);
+          },
+          error: (err) => {
+            console.log('not logged', err);
+          },
+        });
     } else {
       this.formErrorMessage.set('Formulaire invalide');
     }
