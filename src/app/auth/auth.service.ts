@@ -1,16 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { environment } from '../environments/environment.development';
+import { environment } from '../../environments/environment.development';
 import { Observable } from 'rxjs';
-import { GetUserDto } from './models/userDto';
-import { LoginDto } from './models/loginDto';
-import { RegisterDto } from './models/registerDto';
+import { GetUserDto } from '../models/userDto';
+import { LoginDto } from '../models/loginDto';
+import { RegisterDto } from '../models/registerDto';
 
 export class AuthService {
   private readonly httpClient = inject(HttpClient);
   private readonly BaseUrl = environment.apiUrl;
 
-  getUsers(): Observable<GetUserDto[]> {
+  getUser(): Observable<GetUserDto[]> {
     return this.httpClient.get<GetUserDto[]>(`${this.BaseUrl}/me`);
   }
 

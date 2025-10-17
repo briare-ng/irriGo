@@ -1,6 +1,6 @@
 import { LoginDto } from './../models/loginDto';
 import { Injectable } from '@angular/core';
-// import { AuthService } from './auth.service';
+import { AuthService } from './auth.service';
 import { EmailToCheckDto } from '../models/emailToCheckDto';
 import { UserStore } from '../models/UserStore';
 import { RegisterDto } from '../models/registerDto';
