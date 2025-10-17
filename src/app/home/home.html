@@ -1,7 +1,24 @@
-<div class="home-container h-full">
+<div class="home-container h-full flex flex-col items-center p-3">
 
     <div class="main-component">
-        <p>home works !</p>
-        <router-outlet></router-outlet>
+        <mat-card class="w-90" appearance="outlined">
+            <mat-card-header>
+                <div mat-card-avatar class="example-header-image"></div>
+                <mat-card-title>Données d'irrigation</mat-card-title>
+                <!-- <mat-card-subtitle>calculés par</mat-card-subtitle> -->
+            </mat-card-header>
+            <app-water-chart />
+            <mat-card-content>
+                <p class="text-xs">
+                Graphique récapitulant vos consommations par rapport à votre budget en eau
+                </p>
+            </mat-card-content>
+            <!-- <mat-card-actions> -->
+                <!-- <button matButton>LIKE</button>
+                <button matButton>SHARE</button> -->
+            <!-- </mat-card-actions> -->
+        </mat-card>
+
+        <!-- <router-outlet /> -->
     </div>
 </div>
