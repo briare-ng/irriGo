@@ -21,4 +21,15 @@ export const routes: Routes = [
       },
     ],
   },
+  {
+    path: '',
+    children: [
+      {
+        path: 'create-plan',
+        loadComponent: () =>
+          import('./create-form/create-form').then((c) => c.CreateForm),
+        children: [],
+      },
+    ],
+  },
 ];
