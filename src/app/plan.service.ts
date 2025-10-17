@@ -1,9 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { inject } from '@angular/core';
 import { environment } from '../environments/environment.development';
-import { Observable } from 'rxjs';
-import { GetUserDto } from './models/userDto';
-import { LoginDto } from './models/loginDto';
 import { createPlanDto } from './models/createPlanDto';
 import { createPlan2Dto } from './models/createPlan2';
 
@@ -12,8 +9,13 @@ export class PlanService {
   private readonly BaseUrl = environment.apiUrl;
 
   //envoyer 1er form, recupere champs a preremplir
-  creatPlan(createPlan: createPlanDto) {
-    return this.httpClient.post(`${this.BaseUrl}/`, createPlan);
+  creatPlan(createPlan: createPlanDto, token: string) {
+    return this.httpClient.post(`${this.BaseUrl}/`, createPlan, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
   }
 
   //envoyer les parametre finales
