@@ -1,25 +1,42 @@
 <div class="home-container h-full flex flex-col items-center p-3">
 
-    <div class="main-component">
+    <div class="flex flex-col gap-2">
         <mat-card class="w-90" appearance="outlined">
             <mat-card-header>
-                <div mat-card-avatar class="example-header-image"></div>
                 <mat-card-title>Données d'irrigation</mat-card-title>
-                <!-- <mat-card-subtitle>calculés par</mat-card-subtitle> -->
             </mat-card-header>
             <app-water-chart />
             <mat-card-content>
                 <p class="text-xs">
-                Graphique récapitulant vos consommations par rapport à votre budget en eau en m3
+                    Récapitulatif des consommations prévues par l'IA et votre consommation réelle en eau (en m3)
                 </p>
             </mat-card-content>
-            <!-- <mat-card-actions> -->
-                <!-- <button matButton>LIKE</button>
-                <button matButton>SHARE</button> -->
-            <!-- </mat-card-actions> -->
+            <mat-card-actions class="justify-center gap-2">
+                <button matButton="tonal">Historique</button>
+                <button matButton="tonal">Modifier votre stratégie</button>
+            </mat-card-actions>
         </mat-card>
 
-        
+        <mat-card class="w-90" appearance="outlined">
+            <mat-card-header>
+                <mat-card-title>Mesures</mat-card-title>
+            </mat-card-header>
+            <!-- content -->
+            <mat-card-content>
+                <p class="text-xs">
+                    Valeur mesurées par la sonde :
+                </p>
+                <app-sensor-values-card icon="home" description="température" value="15"/>
+                <app-sensor-values-card icon="home" description="température" value="15"/>
+                <app-sensor-values-card icon="home" description="température" value="15"/>
+                <app-sensor-values-card icon="home" description="température" value="15"/>
+
+            </mat-card-content>
+                <mat-card-actions class="justify-end gap-2">
+                    <button matMiniFab="tonal"><mat-icon>refresh</mat-icon></button>
+                </mat-card-actions>
+        </mat-card>
+
 
         <!-- <router-outlet /> -->
     </div>
