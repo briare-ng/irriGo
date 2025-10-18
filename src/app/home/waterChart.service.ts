@@ -1,12 +1,19 @@
 import { HttpClient } from '@angular/common/http';
-import { inject } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { environment } from '../../environments/environment.development';
-
-export class PlanService {
+@Injectable({
+  providedIn: 'root',
+})
+export class WaterChartService {
   private readonly httpClient = inject(HttpClient);
   private readonly BaseUrl = environment.apiUrl;
 
-  getChartValues() {
-    // return this.httpClient.get<>(`${this.BaseUrl}/`);
+  getChartValues(token: string) {
+    return this.httpClient.get<number[]>(`${this.BaseUrl}/parcel/charts`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        'Content-Type': 'application/json',
+      },
+    });
   }
 }

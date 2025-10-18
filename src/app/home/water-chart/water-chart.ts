@@ -12,8 +12,23 @@ import { ForecastValues } from '../../models/waterchartsDto';
 })
 export class WaterChart {
   @Input() values: ForecastValues = {
-    forecastDatas: [],
-    labels: [],
+    forecastDatas: [0.65, 0.59, 0.8, 0.81, 0.56, 0.55, 0.4, 0.28, 0.48, 0.4, 0.19, 0.86, 0.27, 0.9],
+ labels: [
+      'Lundi',
+      'Mardi',
+      'Mercredi',
+      'Jeudi',
+      'Vendredi',
+      'Samedi',
+      'Dimanche',
+      'Lundi',
+      'Mardi',
+      'Mercredi',
+      'Jeudi',
+      'Vendredi',
+      'Samedi',
+      "Aujourd'hui",
+    ],
   };
 
   public lineChartData: ChartConfiguration['data'] = {

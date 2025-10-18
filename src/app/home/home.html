@@ -5,7 +5,7 @@
         <mat-card-title>Données d'irrigation</mat-card-title>
       </mat-card-header>
       <!-- chart -->
-      @if (isLoading()){
+      @if (!isLoading()){
       <div role="status" class="flex justify-center item-center">
         <svg
           aria-hidden="true"
