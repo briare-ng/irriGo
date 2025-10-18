@@ -93,6 +93,7 @@ export class Login {
           },
           error: (err) => {
             console.log('not logged', err);
+            this.formErrorMessage.set('Erreur de connexion');
           },
         });
     } else {
