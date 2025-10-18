@@ -60,6 +60,7 @@ export class CreateForm2 implements OnInit {
       usefulReserve: Number(formValue.reserveUtile),
       parcelId: formValue.parcelId!,
     };
+    console.log(this.authStore.token(), 'tok');
 
     this.planService.createPlan2(createPlan, this.authStore.token()!).subscribe({
       next: () => {

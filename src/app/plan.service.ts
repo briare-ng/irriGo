@@ -22,9 +22,15 @@ export class PlanService {
   }
 
   createPlan2(createPlan: GetCreatePlan2Dto, token: string) {
-    return this.httpClient.post(
+    return this.httpClient.put(
       `${this.BaseUrl}/parcel/onboarding/${createPlan.parcelId}`,
-      createPlan
+      createPlan,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+      }
     );
   }
 }
