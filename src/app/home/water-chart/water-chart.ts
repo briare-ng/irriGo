@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, effect, input } from '@angular/core';
 import { BaseChartDirective } from 'ng2-charts';
 import { ChartConfiguration, ChartType } from 'chart.js';
 import { ForecastValues } from '../../models/waterchartsDto';
@@ -11,9 +11,9 @@ import { ForecastValues } from '../../models/waterchartsDto';
   styleUrl: './water-chart.scss',
 })
 export class WaterChart {
-  @Input() values: ForecastValues = {
-    forecastDatas: [0.65, 0.59, 0.8, 0.81, 0.56, 0.55, 0.4, 0.28, 0.48, 0.4, 0.19, 0.86, 0.27, 0.9],
- labels: [
+  values = input<ForecastValues>({
+    forecastDatas: [],
+    labels: [
       'Lundi',
       'Mardi',
       'Mercredi',
@@ -29,13 +29,43 @@ export class WaterChart {
       'Samedi',
       "Aujourd'hui",
     ],
-  };
+  });
+
+  // public lineChartData: ChartConfiguration['data'] = {
+  //   labels: this.values.labels,
+  //   datasets: [
+  //     {
+  //       data: this.values.forecastDatas,
+  //       label: 'Prévisionnel',
+  //       backgroundColor: 'rgba(106, 218, 22,0.2)',
+  //       borderColor: 'rgba(106, 218, 22,1)',
+  //       pointBackgroundColor: 'rgba(43, 90, 8,1)',
+  //       pointBorderColor: '#fff',
+  //       pointHoverBackgroundColor: '#fff',
+  //       pointHoverBorderColor: 'rgba(43, 90, 8,0.8)',
+  //       fill: 'origin',
+  //     },
+  //     {
+  //       label: 'Consomation réelle',
+  //       backgroundColor: 'rgba(23, 110, 134,0.2)',
+  //       borderColor: 'rgba(23, 110, 134,1)',
+  //       pointBackgroundColor: 'rgba(61, 128, 11,1)',
+  //       pointBorderColor: '#fff',
+  //       pointHoverBackgroundColor: '#fff',
+  //       pointHoverBorderColor: 'rgba(61, 128, 11,1)',
+  //       fill: 'origin',
+  //     },
+  //   ],
+  // };
+  public lineChartType: ChartType = 'line';
+  public lineChartOptions = { responsive: true };
+  public lineChartLegend = true;
 
   public lineChartData: ChartConfiguration['data'] = {
-    labels: this.values.labels,
+    labels: [],
     datasets: [
       {
-        data: this.values.forecastDatas,
+        data: [],
         label: 'Prévisionnel',
         backgroundColor: 'rgba(106, 218, 22,0.2)',
         borderColor: 'rgba(106, 218, 22,1)',
@@ -46,11 +76,8 @@ export class WaterChart {
         fill: 'origin',
       },
       {
-        data: [
-          0.28, 0.48, 0.4, 0.19, 0.86, 0.27, 0.9, 0.65, 0.59, 0.8, 0.81, 0.56,
-          0.55, 0.4,
-        ],
-        label: 'Consomation réelle',
+        data: [10, 9, 8, 11, 18, 3, 9, 13, 17, 5, 2, 11, 19, 7],
+        label: 'Consommation réelle',
         backgroundColor: 'rgba(23, 110, 134,0.2)',
         borderColor: 'rgba(23, 110, 134,1)',
         pointBackgroundColor: 'rgba(61, 128, 11,1)',
@@ -61,7 +88,13 @@ export class WaterChart {
       },
     ],
   };
-  public lineChartType: ChartType = 'line';
-  public lineChartOptions = { responsive: true };
-  public lineChartLegend = true;
+
+  constructor() {
+    effect(() => {
+      const current = this.values();
+      if (!current) return;
+      this.lineChartData.labels = current.labels;
+      this.lineChartData.datasets[0].data = current.forecastDatas;
+    });
+  }
 }
