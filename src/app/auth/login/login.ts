@@ -16,6 +16,8 @@ import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { merge, tap, catchError, throwError } from 'rxjs';
 import { Router, RouterModule } from '@angular/router';
 import { AuthenticationStore } from '../auth.store';
+import { AuthService } from '../../authService';
+import { LoginDto } from '../../models/loginDto';
 
 @Component({
   selector: 'app-login',
