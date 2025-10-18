@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'https://share-eat.com',
+  apiUrl: 'https://share-eat.com/api/v1',
 };

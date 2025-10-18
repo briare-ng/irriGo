@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -14,6 +14,7 @@ import { createPlanDto } from '../models/createPlanDto';
 import { AgricultureType } from '../_utills/agriculture.type.enum';
 import { PlantationType } from '../_utills/plantation.enum';
 import { Period } from '../_utills/periode.enum';
+import { GetCreatePlan2Dto } from '../models/createPlan2';
 
 @Component({
   selector: 'app-create-form',
@@ -25,19 +26,20 @@ import { Period } from '../_utills/periode.enum';
 export class CreateForm {
   private readonly authStore = inject(AuthenticationStore);
   private readonly planService = inject(PlanService);
+  planResponse = signal<GetCreatePlan2Dto | null>(null);
   private router = inject(Router);
-  private planService = inject(PlanService);
 
-  showFormPart2 = false;
+  showFormPart2 = signal(false);
   isFormInvalid = false;
 
   createPlanForm = new FormGroup({
-    surface: new FormControl<number | null>(null, [Validators.required]),
-    projectedConsumption: new FormControl<number | null>(null, Validators.required),
+    surface: new FormControl('', Validators.required),
+    projectedConsumption: new FormControl('', Validators.required),
+    period: new FormControl('', Validators.required),
     agricultureType: new FormControl('', Validators.required),
     plantationType: new FormControl('', Validators.required),
     address: new FormControl('', Validators.required),
-    postalCode: new FormControl<number | null>(null, Validators.required),
+    postalCode: new FormControl('', Validators.required),
     city: new FormControl('', Validators.required),
   });
 
@@ -47,12 +49,8 @@ export class CreateForm {
     this.createPlanForm.markAllAsTouched();
 
     if (this.createPlanForm.invalid) {
-      this.isFormInvalid = true;
-      console.log('Formulaire invalide');
       return;
     }
-
-    //  Création
     const formValue = this.createPlanForm.value;
 
     const createPlan: createPlanDto = {
@@ -67,12 +65,13 @@ export class CreateForm {
     };
 
     //  Appel du service
-    this.planService.createPlan(createPlan).subscribe({
-      next: (res) => {
-        console.log('Réponse backend:', res);
-        this.showFormPart2 = true;
+    this.planService.createPlan(createPlan, this.authStore.token()!).subscribe({
+      next: (data) => {
+        console.log('Réponse backend:');
+        this.showFormPart2.set(true);
+        this.planResponse.set(data);
       },
-      error: (err) => console.error('Erreur API:', err),
+      error: () => console.error('Erreur API:'),
     });
   }
 }

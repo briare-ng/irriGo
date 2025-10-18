@@ -1,18 +1,17 @@
 <div class="form-container">
   <h2>Créez votre plan d'irrigation</h2>
 
-  <form [formGroup] = "createPlanForm" >
-
+  <form [formGroup]="createPlanForm">
     <!-- Surface -->
     <div class="form-group">
       <label for="surface">Surface (m²)</label>
-      <input type="number" id="surface" name="surface" formControlName="surface"  required>
+      <input type="number" id="surface" name="surface" formControlName="surface" required />
     </div>
 
-        <!-- Période -->
+    <!-- Période -->
     <div class="form-group">
       <label for="period">Période</label>
-      <select id="period" name="period"  formControlName="period" required>
+      <select id="period" name="period" formControlName="period" required>
         <option value="WEEK">Semaines</option>
         <option value="QUARTER">Trimestre</option>
         <option value="YEAR">Année</option>
@@ -22,23 +21,23 @@
     <!-- Quantité d'eau -->
     <div class="form-group">
       <label for="eau">Quantité d’eau disponible (m³)</label>
-      <input type="number" id="eau" name="eau" formControlName="projectedConsumption"  required>
+      <input type="number" id="eau" name="eau" formControlName="projectedConsumption" required />
     </div>
 
     <!-- Type de culture -->
     <div class="form-group">
       <label for="plantationType">Type de culture </label>
-        <select name="plantationType"  required formControlName="plantationType">
+      <select name="plantationType" required formControlName="plantationType">
         <option value="TOMATO">Tomates</option>
         <!-- <option value="TOMATO">Courgettes</option> -->
-     <!-- mettre les variable de l'enum --> 
+        <!-- mettre les variable de l'enum -->
       </select>
     </div>
 
     <!-- En serre / extérieur -->
     <div class="form-group">
       <label>Environnement</label>
-      <select name="agricultureType"  required formControlName="agricultureType">
+      <select name="agricultureType" required formControlName="agricultureType">
         <option value="GREENHOUSE">En serre</option>
         <option value="OUTSIDE">En extérieur</option>
       </select>
@@ -46,37 +45,40 @@
 
     <!-- Adresse Declancher la requete que pour la requete de geolocalisation -->
     <div class="form-group">
-
       <label for="address">Adresse</label>
-      <input type="text" id="address" name="address" formControlName="address"  required>
-      
+      <input type="text" id="address" name="address" formControlName="address" required />
+
       <label for="postalCode">Code Postale</label>
-      <input type="number" id="postalCode" name="postalCode" formControlName="postalCode"  required>
+      <input
+        type="number"
+        id="postalCode"
+        name="postalCode"
+        formControlName="postalCode"
+        required
+      />
 
       <label for="city">Ville</label>
-      <input type="text" id="city" name="city" formControlName="city"  required>
-
+      <input type="text" id="city" name="city" formControlName="city" required />
     </div>
-    
-   @if(isFormInvalid){
-        <div class="error-message">
-            <p>Formulaire incomplet</p>
-        </div>
-     }
+
+    @if(isFormInvalid){
+    <div class="error-message">
+      <p>Formulaire incomplet</p>
+    </div>
+    }
 
     <!-- Bouton continuer -->
-     @if (!showFormPart2){
-      <div class="form-group" id="sumbitBtnDiv"> 
-      <button id="sumbitBtn" type="submit" (click)="onSubmit()">Continuer</button> 
-      </div>
-     }
+    @if (!showFormPart2()){
+    <div class="form-group" id="sumbitBtnDiv">
+      <button id="sumbitBtn" type="submit" (click)="onSubmit()">Continuer</button>
+    </div>
+    }
 
-  
-  <!-- Suite du formulaire (initialement cachée) -->
-   @if (showFormPart2){
-      <div class="form-suite" >
-     <app-create-form2></app-create-form2>
-     </div>
-   }
-
-    </form>
+    <!-- Suite du formulaire (initialement cachée) -->
+    @if (showFormPart2()){
+    <div class="form-suite">
+      <app-create-form2 [planData]="planResponse"></app-create-form2>
+    </div>
+    }
+  </form>
+</div>
