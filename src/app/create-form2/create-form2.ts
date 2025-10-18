@@ -1,12 +1,4 @@
-import {
-  Component,
-  effect,
-  inject,
-  Input,
-  OnInit,
-  Signal,
-  SimpleChanges,
-} from '@angular/core';
+import { Component, effect, inject, Input, OnInit, Signal, SimpleChanges } from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -72,14 +64,12 @@ export class CreateForm2 implements OnInit {
     };
     console.log(this.authStore.token(), 'tok');
 
-    this.planService
-      .createPlan2(createPlan, this.authStore.token()!)
-      .subscribe({
-        next: () => {
-          console.log('Réponse backend:');
-          this.router.navigate(['/']);
-        },
-        error: () => console.error('Erreur API:'),
-      });
+    this.planService.createPlan2(createPlan, this.authStore.token()!).subscribe({
+      next: () => {
+        console.log('Réponse backend:');
+        this.router.navigate(['/']);
+      },
+      error: () => console.error('Erreur API:'),
+    });
   }
 }
