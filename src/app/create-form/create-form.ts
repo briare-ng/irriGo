@@ -30,6 +30,7 @@ export class CreateForm {
   private router = inject(Router);
 
   showFormPart2 = signal(false);
+  isLoading = signal(false);
   isFormInvalid = false;
 
   createPlanForm = new FormGroup({
@@ -65,13 +66,18 @@ export class CreateForm {
     };
 
     //  Appel du service
+    this.isLoading.set(true);
     this.planService.createPlan(createPlan, this.authStore.token()!).subscribe({
       next: (data) => {
         console.log('Réponse backend:');
         this.showFormPart2.set(true);
         this.planResponse.set(data);
+        this.isLoading.set(false);
+        this.createPlanForm.disable();
       },
-      error: () => console.error('Erreur API:'),
+      error: () => {
+        this.isLoading.set(false);
+      },
     });
   }
 }
