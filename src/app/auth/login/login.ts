@@ -36,7 +36,6 @@ import { AuthenticationStore } from '../auth.store';
 export class Login {
   private authStore = inject(AuthenticationStore);
   private router = inject(Router);
-  user = { name: 'ugo', email: 'ugo@devid.com', password: 'ugo@Devid25' };
   loginForm = new FormGroup({
     email: new FormControl('', [
       Validators.required,
