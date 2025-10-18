@@ -12,12 +12,8 @@ import { ForecastValues } from '../../models/waterchartsDto';
 })
 export class WaterChart {
   @Input() values: ForecastValues = {
-    forecastDatas: [
-
-    ],
-    labels: [
-
-    ],
+    forecastDatas: [],
+    labels: [],
   };
 
   public lineChartData: ChartConfiguration['data'] = {

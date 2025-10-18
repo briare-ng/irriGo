@@ -1,4 +1,12 @@
-import { Component, effect, inject, Input, OnInit, Signal, SimpleChanges } from '@angular/core';
+import {
+  Component,
+  effect,
+  inject,
+  Input,
+  OnInit,
+  Signal,
+  SimpleChanges,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
@@ -11,6 +19,7 @@ import { PlanService } from '../plan.service';
 import { SoilType } from '../_utills/soil.type.enum';
 import { GetCreatePlan2Dto } from '../models/createPlan2';
 import { DepthLabel } from '../_utills/depth.level';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-form2',
@@ -21,6 +30,7 @@ import { DepthLabel } from '../_utills/depth.level';
 export class CreateForm2 implements OnInit {
   private readonly authStore = inject(AuthenticationStore);
   private readonly planService = inject(PlanService);
+  private router = inject(Router);
 
   @Input({ required: true }) planData!: Signal<GetCreatePlan2Dto | null>;
   createPlanForm = new FormGroup({
@@ -62,11 +72,14 @@ export class CreateForm2 implements OnInit {
     };
     console.log(this.authStore.token(), 'tok');
 
-    this.planService.createPlan2(createPlan, this.authStore.token()!).subscribe({
-      next: () => {
-        console.log('Réponse backend:');
-      },
-      error: () => console.error('Erreur API:'),
-    });
+    this.planService
+      .createPlan2(createPlan, this.authStore.token()!)
+      .subscribe({
+        next: () => {
+          console.log('Réponse backend:');
+          this.router.navigate(['/']);
+        },
+        error: () => console.error('Erreur API:'),
+      });
   }
 }
